@@ -23,6 +23,8 @@
       "baseUrl": ".",
       "paths": {
         "~components": ["content/components"],
+        "~components/Inputs": ["content/components/Inputs"],
+        "~components/Utils": ["content/components/Utils"],
         "~styles": ["content/styles"],
       }
     },

@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { BsList } from 'react-icons/bs';
-import { Popover, FloatingButton } from '~components';
+import { ClickAwayListener, FloatingButton, Popover } from '~components';
 
-const Container = styled.div``;
+const Container = styled.div`
+  color: #fff;
+`;
 
 function App() {
   // prop destruction
@@ -22,15 +24,24 @@ function App() {
   // effects
 
   // handlers
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleTogglePopover = () => {
     setOpen((open) => !open);
   };
 
   return (
     <Container>
-      <FloatingButton onClick={handleTogglePopover}>
-        <BsList />
-      </FloatingButton>
+      <ClickAwayListener onClickAway={handleClose}>
+        <>
+          <Popover open={open}>Hello</Popover>
+          <FloatingButton onClick={handleTogglePopover}>
+            <BsList />
+          </FloatingButton>
+        </>
+      </ClickAwayListener>
     </Container>
   );
 }

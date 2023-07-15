@@ -6,7 +6,7 @@ import { Popover } from './Popover';
 
 type ArgTypes = ComponentProps<typeof Popover>;
 
-const wrapper = (StoryFn: Function) => <div style={{ color: '#fff' }}>{StoryFn()}</div>;
+const wrapper = (StoryFn: any) => <div style={{ color: '#fff' }}>{StoryFn()}</div>;
 
 export default {
   title: 'Components/Popover',
@@ -15,6 +15,7 @@ export default {
   args: {
     children: "Hi I'm popover",
     name: 'example poover',
+    open: true,
   },
   argTypes: {
     open: {
@@ -32,8 +33,8 @@ export const Default: StoryObj<ArgTypes> = {
   },
 };
 
-export const Show: StoryObj<ArgTypes> = {
+export const Hide: StoryObj<ArgTypes> = {
   args: {
-    open: true,
+    open: false,
   },
 };

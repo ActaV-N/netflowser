@@ -1,8 +1,9 @@
 import { useAnimate } from 'framer-motion';
 import styled from '@emotion/styled';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const PopoverContainer = styled.div``;
+
 interface PopoverProps {
   open?: boolean;
   className?: string;
@@ -16,6 +17,7 @@ function Popover(props: PopoverProps) {
 
   // lib hooks
   const [scope, animate] = useAnimate();
+  const [initialOpacity] = useState<boolean>(!!open);
 
   // state, ref, querystring hooks
 
@@ -57,7 +59,13 @@ function Popover(props: PopoverProps) {
   // handlers
 
   return (
-    <PopoverContainer role='dialog' aria-label={name} className={className} ref={scope}>
+    <PopoverContainer
+      style={{ opacity: Number(initialOpacity) }}
+      role='dialog'
+      aria-label={name}
+      className={className}
+      ref={scope}
+    >
       {children}
     </PopoverContainer>
   );

@@ -17,6 +17,12 @@ const FloatingButtonContainer = styled.button`
 
   transition: background-color 0.15s ${EASE_IN_OUT};
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 18px;
+
   &: hover {
     background-color: #b7b7b7;
   }

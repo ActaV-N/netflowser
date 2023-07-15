@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Preview } from '@storybook/react';
 import { FinProvider } from '@actav/floating-icon-navigation';
 
