@@ -1,4 +1,9 @@
-interface FloatingButtonProps {}
+import styled from '@emotion/styled';
+
+const FloatingButtonContainer = styled.button``;
+interface FloatingButtonProps {
+  onClick?: React.MouseEventHandler;
+}
 
 function FloatingButton(props: FloatingButtonProps) {
   // prop destruction
@@ -18,7 +23,7 @@ function FloatingButton(props: FloatingButtonProps) {
 
   // handlers
 
-  return <div></div>;
+  return <FloatingButtonContainer></FloatingButtonContainer>;
 }
 
 export { FloatingButton };
