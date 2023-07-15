@@ -1,11 +1,11 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
 import { FinProvider } from "@actav/floating-icon-navigation";
+import ReactDOM from "react-dom/client";
 import App from "./App";
 
 const rootElement = document.createElement("div");
-rootElement.id = "netflowser";
-document.appendChild(rootElement);
+rootElement.id = "netflowsing";
+document.body.appendChild(rootElement);
 
 const root = ReactDOM.createRoot(rootElement);
 root.render(
