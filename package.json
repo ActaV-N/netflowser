@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "content": "vite build --entry content/index.tsx",
     "build": "vite build"
   },
   "keywords": [],
