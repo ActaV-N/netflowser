@@ -24,13 +24,14 @@ const FloatingButtonContainer = styled.button`
 interface FloatingButtonProps {
   onClick?: React.MouseEventHandler;
   children: React.ReactNode;
+  className?: string;
   role?: string;
   name?: string;
 }
 
 function FloatingButton(props: FloatingButtonProps) {
   // prop destruction
-  const { onClick, role = 'button', name, children } = props;
+  const { onClick, className, role = 'button', name, children } = props;
 
   // lib hooks
 
@@ -47,7 +48,7 @@ function FloatingButton(props: FloatingButtonProps) {
   // handlers
 
   return (
-    <FloatingButtonContainer role={role} aria-label={name} onClick={onClick}>
+    <FloatingButtonContainer className={className} role={role} aria-label={name} onClick={onClick}>
       {children}
     </FloatingButtonContainer>
   );
