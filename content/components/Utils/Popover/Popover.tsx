@@ -43,6 +43,7 @@ function Popover(props: PopoverProps) {
         },
         {
           ease: 'easeInOut',
+          duration: 0.2,
         },
       );
 
