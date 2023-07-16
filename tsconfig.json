@@ -25,6 +25,7 @@
         "~components": ["content/components"],
         "~components/Inputs": ["content/components/Inputs"],
         "~components/Utils": ["content/components/Utils"],
+        "~components/Icons": ["content/components/Icons"],
         "~tabs": ["content/tabs"],
         "~styles": ["content/styles"],
         "~api/middleware": ["api/middleware"],

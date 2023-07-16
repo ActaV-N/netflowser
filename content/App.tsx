@@ -2,18 +2,13 @@ import { Fin, FinReceiver, Fins, FinClasses } from '@actav/floating-icon-navigat
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import {
-  BsList,
   BsListColumnsReverse as GenresIcon,
   BsPeopleFill as FriendsIcon,
   BsGraphUp as GraphIcon,
 } from 'react-icons/bs';
 import { AiFillHeart as LikeIcon, AiFillSetting as SettingIcon } from 'react-icons/ai';
-import { ClickAwayListener, FloatingButton, Popover } from '~components';
-import { GenreTab } from './tabs/GenreTab';
-import { FriendTab } from './tabs/FriendTab';
-import { LikeTab } from './tabs/LikeTab';
-import { GraphTab } from './tabs/GraphTab';
-import { SettingTab } from './tabs/SettingTab';
+import { ClickAwayListener, FloatingButton, Popover, ToggleIcon } from '~components';
+import { GenreTab, FriendTab, LikeTab, GraphTab, SettingTab } from '~tabs';
 
 const Container = styled.div`
   color: #fff;
@@ -137,7 +132,7 @@ function App() {
             </div>
           </Popover>
           <FloatingButton className='fab' onClick={handleTogglePopover}>
-            <BsList />
+            <ToggleIcon open={open} />
           </FloatingButton>
         </>
       </ClickAwayListener>
