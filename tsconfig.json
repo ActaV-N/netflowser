@@ -28,6 +28,8 @@
         "~tabs": ["content/tabs"],
         "~styles": ["content/styles"],
         "~api/middleware": ["api/middleware"],
+        "~api/config": ["api/config"],
+        "~api/lib/*": ["api/lib/*"],
       }
     },
     "include": [
