@@ -1,4 +1,4 @@
-import { Fin, FinReceiver, Fins } from '@actav/floating-icon-navigation';
+import { Fin, FinReceiver, Fins, FinClasses } from '@actav/floating-icon-navigation';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import {
@@ -55,6 +55,16 @@ const Container = styled.div`
 
         .netflowser-item--fins {
           padding: 10px;
+
+          .${FinClasses.icon} {
+            box-sizing: border-box;
+            padding: 3px;
+
+            svg {
+              width: 100%;
+              height: 100%;
+            }
+          }
         }
       }
     }
