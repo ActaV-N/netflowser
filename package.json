@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "ts-node-dev --respawn -r dotenv/config api/server.ts",
+    "server": "ts-node-dev --respawn -r dotenv/config -r tsconfig-paths/register api/server.ts",
     "build": "vite build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
@@ -30,7 +30,8 @@
     "react-icons": "^4.10.1",
     "reflect-metadata": "^0.1.13",
     "typedi": "^0.10.0",
-    "typeorm": "^0.3.17"
+    "typeorm": "^0.3.17",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.0.27",
@@ -44,6 +45,7 @@
     "@types/node": "^20.4.2",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "@types/uuid": "^9.0.2",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.0.1",
@@ -59,6 +61,7 @@
     "prop-types": "^15.8.1",
     "storybook": "^7.0.27",
     "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "*",
     "vite": "^4.4.4",
     "vite-tsconfig-paths": "^4.2.0"

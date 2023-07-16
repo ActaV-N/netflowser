@@ -27,10 +27,12 @@
         "~components/Utils": ["content/components/Utils"],
         "~tabs": ["content/tabs"],
         "~styles": ["content/styles"],
+        "~api/middleware": ["api/middleware"],
       }
     },
     "include": [
       "content",
+      "api"
     ],
     "exclude": [
       "node_modules",
