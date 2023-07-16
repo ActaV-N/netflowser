@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "server": "ts-node-dev --respawn -r dotenv/config api/server.ts",
     "build": "vite build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
@@ -14,14 +15,22 @@
   "license": "ISC",
   "dependencies": {
     "@actav/floating-icon-navigation": "^1.0.8",
+    "@ecubelabs/seed": "^0.3.8",
     "@emotion/css": "^11.11.2",
     "@emotion/react": "^11.11.1",
     "@emotion/style": "^0.8.0",
+    "@koa/router": "^12.0.0",
     "@storybook/jest": "^0.1.0",
+    "dotenv": "^16.3.1",
     "framer-motion": "^10.12.21",
+    "koa": "^2.14.2",
+    "koa-body": "^6.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.10.1"
+    "react-icons": "^4.10.1",
+    "reflect-metadata": "^0.1.13",
+    "typedi": "^0.10.0",
+    "typeorm": "^0.3.17"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.0.27",
@@ -31,6 +40,7 @@
     "@storybook/react": "^7.0.27",
     "@storybook/react-vite": "^7.0.27",
     "@storybook/testing-library": "^0.0.14-next.2",
+    "@types/koa__router": "^12.0.0",
     "@types/node": "^20.4.2",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
@@ -48,6 +58,7 @@
     "eslint-plugin-storybook": "^0.6.12",
     "prop-types": "^15.8.1",
     "storybook": "^7.0.27",
+    "ts-node-dev": "^2.0.0",
     "typescript": "*",
     "vite": "^4.4.4",
     "vite-tsconfig-paths": "^4.2.0"
