@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz#bd9154aec9983f77b3a034ecaa015c2e4201f6cf"
   integrity sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==
 
-"@actav/floating-icon-navigation@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@actav/floating-icon-navigation/-/floating-icon-navigation-1.0.6.tgz#5375c2bee3eea602791bdcde75cfe5d035e0b454"
-  integrity sha512-R3Ij6xcUfHOV/Ym8t1nxN6ubZN6JDM0eOsuqM1Br6/sFr18hPg0kiDheOStMSKhOg5MI86bj1gMzD0Y6e0qS2w==
+"@actav/floating-icon-navigation@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@actav/floating-icon-navigation/-/floating-icon-navigation-1.0.8.tgz#8cfaa7c82bd0e5804a97e63b5f062f3f20ff1651"
+  integrity sha512-EQYrNOoawS/fLTgcGG+x2a9G7/a8RwNznmc+nHkeEQQX0xWJ2BagVk3fEAAePYwYkB8cOQcw5RaJYS5vvHHvuQ==
   dependencies:
     "@emotion/core" "^11.0.0"
     "@emotion/css" "^11.11.0"

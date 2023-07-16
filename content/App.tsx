@@ -1,9 +1,19 @@
 import { Fin, FinReceiver, Fins } from '@actav/floating-icon-navigation';
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { BsList, BsListColumnsReverse as GenresIcon } from 'react-icons/bs';
-import { AiFillLike as LikeIcon } from 'react-icons/ai';
+import {
+  BsList,
+  BsListColumnsReverse as GenresIcon,
+  BsPeopleFill as FriendsIcon,
+  BsGraphUp as GraphIcon,
+} from 'react-icons/bs';
+import { AiFillHeart as LikeIcon, AiFillSetting as SettingIcon } from 'react-icons/ai';
 import { ClickAwayListener, FloatingButton, Popover } from '~components';
+import { GenreTab } from './tabs/GenreTab';
+import { FriendTab } from './tabs/FriendTab';
+import { LikeTab } from './tabs/LikeTab';
+import { GraphTab } from './tabs/GraphTab';
+import { SettingTab } from './tabs/SettingTab';
 
 const Container = styled.div`
   color: #fff;
@@ -31,6 +41,17 @@ const Container = styled.div`
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        align-items: center;
+
+        .netflowser-item--receiver {
+          width: 100%;
+          flex: 1;
+
+          .netflowser-receiver {
+            width: 100%;
+            height: 100%;
+          }
+        }
 
         .netflowser-item--fins {
           padding: 10px;
@@ -81,15 +102,24 @@ function App() {
             <div className='netflowser-popover--container'>
               <div className='netflowser-popover--wrapper'>
                 <div className='netflowser-item--receiver'>
-                  <FinReceiver />
+                  <FinReceiver className='netflowser-receiver' />
                 </div>
                 <div className='netflowser-item--fins'>
                   <Fins>
                     <Fin index path='genres' icon={<GenresIcon />}>
-                      Genres
+                      <GenreTab />
                     </Fin>
-                    <Fin path='like' icon={<LikeIcon />}>
-                      Like
+                    <Fin path='friends' icon={<FriendsIcon />}>
+                      <FriendTab />
+                    </Fin>
+                    <Fin path='like' activeColor='#FA5352' icon={<LikeIcon />}>
+                      <LikeTab />
+                    </Fin>
+                    <Fin path='graph' icon={<GraphIcon />}>
+                      <GraphTab />
+                    </Fin>
+                    <Fin path='setting' icon={<SettingIcon />}>
+                      <SettingTab />
                     </Fin>
                   </Fins>
                 </div>
