@@ -30,11 +30,14 @@
         "~api/middleware": ["api/middleware"],
         "~api/config": ["api/config"],
         "~api/lib/*": ["api/lib/*"],
+        "~channel": ["content/channel"],
       }
     },
     "include": [
       "content",
-      "api"
+      "api",
+      "background",
+      "const"
     ],
     "exclude": [
       "node_modules",

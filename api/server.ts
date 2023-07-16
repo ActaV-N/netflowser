@@ -1,5 +1,6 @@
 import Koa from 'koa';
 import Router from '@koa/router';
+import cors from '@koa/cors';
 import gracefulShutdown from 'http-graceful-shutdown';
 import { dependencyInjector, uuidMiddleware } from '~api/middleware';
 import { initDataSource } from '~api/lib/datasource';
@@ -16,6 +17,7 @@ const port = process.env.PORT;
     ctx.body = 'pong';
   });
 
+  app.use(cors());
   app.use(uuidMiddleware);
   app.use(dependencyInjector);
 
