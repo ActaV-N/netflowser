@@ -15,6 +15,11 @@
     "48": "icon48.png",
     "128": "icon128.png"
   },
+  "background": {
+    "service_worker": "./background.js"
+  },
+  "host_permissions": ["https://www.netflix.com/*"],
+  "permissions": ["scripting"],
   "action": {
     "default_popup": "./popup/index.html",
     "default_icon": "icon128.png"

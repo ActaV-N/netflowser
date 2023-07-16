@@ -1,20 +1,21 @@
-import { defineConfig } from "vite";
-import TsconfigPaths from "vite-tsconfig-paths";
+import { defineConfig } from 'vite';
+import TsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
-  root: ".",
-  publicDir: "./static",
+  root: '.',
+  publicDir: './static',
   plugins: [TsconfigPaths()],
   build: {
-    outDir: "dist",
+    outDir: 'dist',
     rollupOptions: {
       input: {
-        content: "./content/index.tsx",
-        popup: "./popup/index.html",
+        content: './content/index.tsx',
+        background: './background/index.ts',
+        popup: './popup/index.html',
       },
       output: {
-        format: "es",
-        entryFileNames: "[name].js",
+        format: 'es',
+        entryFileNames: '[name].js',
       },
     },
   },
