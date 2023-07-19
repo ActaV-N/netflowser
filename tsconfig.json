@@ -28,6 +28,8 @@
         "~components/Icons": ["content/components/Icons"],
         "~tabs": ["content/tabs"],
         "~styles": ["content/styles"],
+        "~repository": ["content/repository"],
+        "~models": ["content/models"],
         "~api/middleware": ["api/middleware"],
         "~api/config": ["api/config"],
         "~api/lib/*": ["api/lib/*"],

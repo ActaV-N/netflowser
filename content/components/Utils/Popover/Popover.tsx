@@ -40,6 +40,7 @@ function Popover(props: PopoverProps) {
         scope.current,
         {
           opacity: Number(open),
+          scale: 0.95 + 0.05 * Number(open),
         },
         {
           ease: 'easeInOut',
@@ -61,7 +62,7 @@ function Popover(props: PopoverProps) {
 
   return (
     <PopoverContainer
-      style={{ opacity: Number(initialOpacity) }}
+      style={{ opacity: Number(initialOpacity), scale: 0.95 + 0.05 * Number(initialOpacity) }}
       role='dialog'
       aria-label={name}
       className={className}

@@ -1,22 +1,34 @@
-import { CONNECTION, _CONNECTION } from './channel';
+import { httpClient } from './libs/http-client';
 
-function sentToContent(message: string) {
+// Query Key만들어서 content에서 어떤 데이터를 요청했는지 알아야함
+function sendToContent({ data, error }: { data?: any; error?: any }) {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     if (tabs[0].id) {
-      chrome.tabs.sendMessage(tabs[0].id, { message });
+      chrome.tabs.sendMessage(tabs[0].id, { data, error });
     }
   });
 }
 
-function connectionTester() {
-  sentToContent(_CONNECTION);
+interface Request {
+  method?: keyof typeof httpClient;
+  path: string;
+  data?: any;
 }
 
-chrome.runtime.onMessage.addListener(async function (request) {
-  if (request.message === CONNECTION) {
-    const res = await fetch('http://localhost:3000/ping');
-    console.log(res);
+chrome.runtime.onMessage.addListener(async function (request: Request) {
+  let { method } = request;
+  const { path, data } = request;
 
-    connectionTester();
+  method ??= 'get';
+
+  try {
+    const result = await httpClient[method](path, data);
+    sendToContent({
+      data: result,
+    });
+  } catch (error) {
+    sendToContent({
+      error,
+    });
   }
 });
