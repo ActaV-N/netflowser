@@ -1,5 +1,5 @@
 import React from 'react';
-import { FinProvider } from '@actav/floating-icon-navigation';
+import Provider from './provider/Provider';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
@@ -10,8 +10,8 @@ document.body.appendChild(rootElement);
 const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
-    <FinProvider>
+    <Provider>
       <App />
-    </FinProvider>
+    </Provider>
   </React.StrictMode>,
 );

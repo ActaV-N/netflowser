@@ -1,14 +1,10 @@
 import { Fin, FinReceiver, Fins, FinClasses } from '@actav/floating-icon-navigation';
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import {
-  BsListColumnsReverse as GenresIcon,
-  BsPeopleFill as FriendsIcon,
-  BsGraphUp as GraphIcon,
-} from 'react-icons/bs';
-import { AiFillHeart as LikeIcon, AiFillSetting as SettingIcon } from 'react-icons/ai';
+import { BsListColumnsReverse as GenresIcon } from 'react-icons/bs';
+import { AiFillHeart as LikeIcon } from 'react-icons/ai';
 import { ClickAwayListener, FloatingButton, Popover, ToggleIcon } from '~components';
-import { GenreTab, FriendTab, LikeTab, GraphTab, SettingTab } from '~tabs';
+import { GenreTab, LikeTab } from '~tabs';
 
 const Container = styled.div`
   color: #fff;
@@ -111,20 +107,11 @@ function App() {
                 </div>
                 <div className='netflowser-item--fins'>
                   <Fins>
-                    <Fin index path='genres' icon={<GenresIcon />}>
+                    <Fin index path='genres' activeColor='#5352FA' icon={<GenresIcon />}>
                       <GenreTab />
-                    </Fin>
-                    <Fin path='friends' icon={<FriendsIcon />}>
-                      <FriendTab />
                     </Fin>
                     <Fin path='like' activeColor='#FA5352' icon={<LikeIcon />}>
                       <LikeTab />
-                    </Fin>
-                    <Fin path='graph' icon={<GraphIcon />}>
-                      <GraphTab />
-                    </Fin>
-                    <Fin path='setting' icon={<SettingIcon />}>
-                      <SettingTab />
                     </Fin>
                   </Fins>
                 </div>
