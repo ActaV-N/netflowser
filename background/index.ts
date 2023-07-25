@@ -12,18 +12,18 @@ function sendToContent({ queryKey, data, error }: { queryKey: string[]; data?: a
 interface Request {
   method?: keyof typeof httpClient;
   path: string;
-  data?: any;
+  data?: Record<string, any>;
   queryKey: string[];
 }
 
 chrome.runtime.onMessage.addListener(async function (request: Request) {
   let { method } = request;
-  const { path, queryKey } = request;
+  const { path, queryKey, data } = request;
 
   method ??= 'get';
 
   try {
-    const result = await httpClient[method](path);
+    const result = await httpClient[method](path, data);
 
     sendToContent({
       data: result,

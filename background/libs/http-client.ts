@@ -1,8 +1,8 @@
 const BASE_URL = 'http://localhost:5800';
 
 export const httpClient = (() => {
-  const call = async (pathname: string, method: string) => {
-    const res = await fetch(`${BASE_URL}${pathname}`, { method });
+  const call = async (pathname: string, method: string, body?: Record<string, any>) => {
+    const res = await fetch(`${BASE_URL}${pathname}`, { method, body: JSON.stringify(body) });
 
     if (!res.ok) {
       const { errorMessage } = await res.json();
@@ -19,14 +19,11 @@ export const httpClient = (() => {
       return call(url, 'get');
     },
 
+    async post<T>(url: string, data?: Record<string, any>): Promise<T> {
+      return call(url, 'post', data);
+    },
     // async head<T>(url: string, config?: { params?: any }): Promise<T> {
     //   const res = await instance.head<T>(url, config);
-    //   // @ts-expect-error 모든 API 는 { data: 결과 } 형태임을 가정한다.
-    //   return res?.data?.data;
-    // },
-
-    // async post<T>(url: string, data: Record<string, any>): Promise<T> {
-    //   const res = await instance.post<T>(url, data);
     //   // @ts-expect-error 모든 API 는 { data: 결과 } 형태임을 가정한다.
     //   return res?.data?.data;
     // },
