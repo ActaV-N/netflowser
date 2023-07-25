@@ -1,19 +1,16 @@
 const BASE_URL = 'http://localhost:5800';
 
 export const httpClient = (() => {
-  const errorInterceptors = (err: unknown) => {
-    console.log(err);
-  };
   const call = async (pathname: string, method: string) => {
-    try {
-      const res = await fetch(`${BASE_URL}${pathname}`, { method });
+    const res = await fetch(`${BASE_URL}${pathname}`, { method });
 
-      const { data } = await res.json();
-
-      return data;
-    } catch (error) {
-      return errorInterceptors(error);
+    if (!res.ok) {
+      throw new Error(res.statusText);
     }
+
+    const { data } = await res.json();
+
+    return data;
   };
 
   return {

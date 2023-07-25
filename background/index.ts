@@ -30,9 +30,11 @@ chrome.runtime.onMessage.addListener(async function (request: Request) {
       queryKey,
     });
   } catch (error) {
-    console.log(error);
+    const { message, stack, cause } = error as Error;
+    console.log(stack, cause);
+
     sendToContent({
-      error,
+      error: message,
       queryKey,
     });
   }
