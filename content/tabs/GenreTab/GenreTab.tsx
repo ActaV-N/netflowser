@@ -18,7 +18,7 @@ function GenreTab() {
 
   // effects
   useEffect(() => {
-    get('/ping', ['ping']);
+    get('/ping', ['pong']);
   }, []);
 
   // handlers

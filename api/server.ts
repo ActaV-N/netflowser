@@ -14,7 +14,7 @@ const port = process.env.PORT;
   const router = new Router();
 
   router.get('/ping', async (ctx) => {
-    ctx.body = 'pong';
+    ctx.body = { data: 'pong' };
   });
 
   app.use(cors());

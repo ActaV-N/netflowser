@@ -18,13 +18,13 @@ interface Request {
 
 chrome.runtime.onMessage.addListener(async function (request: Request) {
   let { method } = request;
-  const { path, data, queryKey } = request;
+  const { path, queryKey } = request;
 
   method ??= 'get';
 
   try {
-    const result = await httpClient[method](path, data);
-    console.log(result);
+    const result = await httpClient[method](path);
+
     sendToContent({
       data: result,
       queryKey,
