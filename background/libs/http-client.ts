@@ -5,7 +5,8 @@ export const httpClient = (() => {
     const res = await fetch(`${BASE_URL}${pathname}`, { method });
 
     if (!res.ok) {
-      throw new Error(res.statusText);
+      const { errorMessage } = await res.json();
+      throw new Error(errorMessage);
     }
 
     const { data } = await res.json();

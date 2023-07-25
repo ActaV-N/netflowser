@@ -4,7 +4,6 @@ import cors from '@koa/cors';
 import gracefulShutdown from 'http-graceful-shutdown';
 import { dependencyInjector, errorHandler, uuidMiddleware } from '~api/middleware';
 import { initDataSource } from '~api/lib/datasource';
-import { badRequest } from '@hapi/boom';
 
 const port = process.env.PORT;
 
@@ -15,7 +14,6 @@ const port = process.env.PORT;
   const router = new Router();
 
   router.get('/ping', async (ctx) => {
-    throw badRequest('Bad request', { message: 'br' });
     ctx.body = { data: 'pong' };
   });
 
