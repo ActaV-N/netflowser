@@ -2,7 +2,9 @@ import { useAnimate } from 'framer-motion';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 
-const PopoverContainer = styled.div``;
+const PopoverContainer = styled.div`
+  transform-origin: bottom right;
+`;
 
 interface PopoverProps {
   open?: boolean;
