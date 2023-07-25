@@ -34,6 +34,7 @@
         "~api/config": ["api/config"],
         "~api/lib/*": ["api/lib/*"],
         "~channel": ["content/channel"],
+        "~hooks": ["content/hooks"]
       }
     },
     "include": [

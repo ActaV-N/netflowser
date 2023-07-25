@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import { channelStore } from '~channel';
 
-const ChannelContext = createContext<{
+export const ChannelContext = createContext<{
   get: (path: string, queryKey: string[]) => void;
 }>({
   get: () => {},

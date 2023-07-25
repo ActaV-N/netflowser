@@ -24,11 +24,13 @@ chrome.runtime.onMessage.addListener(async function (request: Request) {
 
   try {
     const result = await httpClient[method](path, data);
+    console.log(result);
     sendToContent({
       data: result,
       queryKey,
     });
   } catch (error) {
+    console.log(error);
     sendToContent({
       error,
       queryKey,
