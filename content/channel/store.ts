@@ -1,5 +1,5 @@
-import { remove } from 'lodash';
-import { Observable, Subject } from 'rxjs';
+import { intersection, remove } from 'lodash';
+import { Subject, Subscription } from 'rxjs';
 import sha1 from 'sha1';
 
 export interface Request {
@@ -22,7 +22,7 @@ export class ChannelStore {
   public static instance: ChannelStore = new this();
   private subject: Subject<Response>;
   private cache: Record<string, ({ id: string } & Request)[]> = {};
-  private listeners: Record<string, Observable<Response<any>> | undefined> = {};
+  private listeners: Record<string, Subscription> = {};
 
   private constructor() {
     this.subject = new Subject<Response>();
@@ -47,12 +47,8 @@ export class ChannelStore {
       if (!this.cache[key]) {
         this.cache[key] = [];
       }
-      // 2. queryKey 배열에 들어있는 queryKey로 다른 request도 보내기
-      for (const cache of this.cache[key]) {
-        sendMessage(cache);
-      }
 
-      // 3. 현재 query 캐싱
+      // 2. 현재 query 캐싱
       if (this.cache[key].filter((req) => req.id === hashKey).length === 0) {
         this.cache[key].push({
           id: hashKey,
@@ -61,11 +57,15 @@ export class ChannelStore {
           queryKey,
         });
       }
+
+      // 3. queryKey 배열에 들어있는 queryKey로 request 보내기
+      for (const cache of this.cache[key]) {
+        sendMessage(cache);
+      }
     }
   }
 
   query(path: string, queryKey: string[]) {
-    sendMessage({ method: 'get', path, queryKey });
     this.cacheQuery(path, queryKey, 'get');
   }
 
@@ -75,8 +75,12 @@ export class ChannelStore {
 
   subscribe(listener: (res: Response) => void, path: string, queryKey: string[]) {
     const key = this.generateListenerKey(path, queryKey);
-    this.listeners[key] = this.subject.asObservable();
-    this.listeners[key]!.subscribe(listener);
+    this.listeners[key] = this.subject.asObservable().subscribe((res) => {
+      const isTarget = intersection(res.queryKey, queryKey).length !== 0;
+      if (isTarget) {
+        listener(res);
+      }
+    });
   }
 
   unsubscribe(path: string, queryKey: string[]) {
@@ -91,7 +95,7 @@ export class ChannelStore {
 
     // 2. 제거
     const key = sha1(`${path}:${JSON.stringify(queryKey)}`);
-    this.listeners[key] = undefined;
+    this.listeners[key].unsubscribe();
   }
 }
 

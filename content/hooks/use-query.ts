@@ -28,6 +28,7 @@ function useQuery<T>(path: string, queryKey: string[]) {
 
   useEffect(() => {
     const listener = (res: Response) => {
+      console.log('Listening in useQuery');
       setIsLoading(true);
       if (res.data) {
         setData(res.data);

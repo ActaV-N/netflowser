@@ -6,6 +6,7 @@ export default defineConfig({
   publicDir: './static',
   plugins: [TsconfigPaths()],
   build: {
+    chunkSizeWarningLimit: 1600,
     outDir: 'dist',
     rollupOptions: {
       input: {
