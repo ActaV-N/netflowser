@@ -11,8 +11,8 @@ function GenreTab() {
     'post',
     '/ping',
     {
-      onComplete(data, error) {
-        console.log(data, error);
+      onComplete(data) {
+        console.log(data);
       },
     },
     ['ping'],

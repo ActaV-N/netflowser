@@ -5,7 +5,7 @@ import { Request, Response } from '~channel';
 function useMutation<T>(
   method: Request['method'],
   path: string,
-  options: { onComplete: (data: T, error: any) => void } = { onComplete() {} },
+  options: { onComplete?: (data: T) => void; onError?: (error: Error) => void } = { onComplete() {}, onError() {} },
   queryKey: string[],
 ): [(variables?: Record<string, any>) => void, { isLoading: boolean }] {
   // prop destruction
@@ -30,7 +30,11 @@ function useMutation<T>(
   useEffect(() => {
     const listener = (res: Response) => {
       setIsLoading(false);
-      options?.onComplete(res.data, res.error);
+      if (res.data) {
+        options?.onComplete?.(res.data);
+      } else if (res.error) {
+        options?.onError?.(res.data);
+      }
     };
 
     channelStore.subscribe(listener, path, queryKey, method);
