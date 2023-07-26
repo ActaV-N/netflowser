@@ -26,9 +26,6 @@ export class ChannelStore {
 
   private constructor() {
     this.subject = new Subject<Response>();
-    this.subject.subscribe((res: Response) => {
-      console.log('Log from global event store', res);
-    });
   }
 
   private generateRequestKey(path: string, key: string) {
