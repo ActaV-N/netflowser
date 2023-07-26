@@ -1,10 +1,10 @@
 import { createContext } from 'react';
-import { channelStore } from '~channel';
+import { channelStore, type ChannelStore } from '~channel';
 
 export const ChannelContext = createContext<{
-  get: (path: string, queryKey: string[]) => void;
+  channelStore: ChannelStore;
 }>({
-  get: () => {},
+  channelStore,
 });
 
 function ChannelProvider(props: { children: React.ReactNode }) {
@@ -20,12 +20,11 @@ function ChannelProvider(props: { children: React.ReactNode }) {
   // query hooks
 
   // calculated values
-  const get = (path: string, queryKey: string[]) => channelStore.get(path, queryKey);
 
   // effects
 
   // handlers
-  return <ChannelContext.Provider value={{ get }}>{children}</ChannelContext.Provider>;
+  return <ChannelContext.Provider value={{ channelStore }}>{children}</ChannelContext.Provider>;
 }
 
 export { ChannelProvider };

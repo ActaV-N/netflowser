@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { Building } from '../Building';
-import { useChannel } from '~hooks';
+import { useQuery } from '~hooks';
 
 function GenreTab() {
   // prop destruction
 
   // lib hooks
-  const { get } = useChannel();
+  const { data } = useQuery('/ping', ['ping']);
 
   // state, ref, querystring hooks
 
@@ -18,8 +18,8 @@ function GenreTab() {
 
   // effects
   useEffect(() => {
-    get('/ping', ['pong']);
-  }, []);
+    console.log(data);
+  }, [data]);
 
   // handlers
   return <Building />;

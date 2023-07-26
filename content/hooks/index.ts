@@ -1,1 +1,1 @@
-export * from './use-channel';
+export * from './use-query';

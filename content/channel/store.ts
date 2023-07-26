@@ -1,13 +1,15 @@
-import { Subject } from 'rxjs';
+import { remove } from 'lodash';
+import { Observable, Subject } from 'rxjs';
+import sha1 from 'sha1';
 
-interface Request {
-  method?: 'get' | 'post' | 'put' | 'delete' | 'patch';
+export interface Request {
+  method: 'get' | 'post' | 'put' | 'delete' | 'patch';
   path: string;
   data?: any;
   queryKey: string[];
 }
 
-interface Response<T = any> {
+export interface Response<T = any> {
   data?: T;
   error?: any;
   queryKey: string[];
@@ -16,9 +18,11 @@ interface Response<T = any> {
 function sendMessage(req: Request) {
   chrome.runtime.sendMessage(req);
 }
-class ChannelStore {
+export class ChannelStore {
   public static instance: ChannelStore = new this();
   private subject: Subject<Response>;
+  private cache: Record<string, ({ id: string } & Request)[]> = {};
+  private listeners: Record<string, Observable<Response<any>> | undefined> = {};
 
   private constructor() {
     this.subject = new Subject<Response>();
@@ -27,12 +31,67 @@ class ChannelStore {
     });
   }
 
-  get(path: string, queryKey: string[]) {
+  private generateRequestKey(path: string, key: string) {
+    return sha1(`${path}:${key}`);
+  }
+
+  private generateListenerKey(path: string, keys: string[]) {
+    return sha1(`${path}:${JSON.stringify(keys)}`);
+  }
+
+  private cacheQuery(path: string, queryKey: string[], method: Request['method']) {
+    // 1. queryKey 배열에 들어있는 queryKey랑 path로 hashKey 만들기
+    for (const key of queryKey) {
+      const hashKey = this.generateRequestKey(path, key);
+
+      if (!this.cache[key]) {
+        this.cache[key] = [];
+      }
+      // 2. queryKey 배열에 들어있는 queryKey로 다른 request도 보내기
+      for (const cache of this.cache[key]) {
+        sendMessage(cache);
+      }
+
+      // 3. 현재 query 캐싱
+      if (this.cache[key].filter((req) => req.id === hashKey).length === 0) {
+        this.cache[key].push({
+          id: hashKey,
+          method,
+          path,
+          queryKey,
+        });
+      }
+    }
+  }
+
+  query(path: string, queryKey: string[]) {
     sendMessage({ method: 'get', path, queryKey });
+    this.cacheQuery(path, queryKey, 'get');
   }
 
   issue(res: Response) {
     ChannelStore.instance.subject.next(res);
+  }
+
+  subscribe(listener: (res: Response) => void, path: string, queryKey: string[]) {
+    const key = this.generateListenerKey(path, queryKey);
+    this.listeners[key] = this.subject.asObservable();
+    this.listeners[key]!.subscribe(listener);
+  }
+
+  unsubscribe(path: string, queryKey: string[]) {
+    // 1. queryKey와 path로 hashKey를 만들어서 cache에서 제거
+    for (const key of queryKey) {
+      const hashKey = this.generateRequestKey(path, key);
+
+      if (this.cache[key]) {
+        remove(this.cache[key], (req) => req.id === hashKey);
+      }
+    }
+
+    // 2. 제거
+    const key = sha1(`${path}:${JSON.stringify(queryKey)}`);
+    this.listeners[key] = undefined;
   }
 }
 
