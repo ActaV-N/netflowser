@@ -2,18 +2,18 @@ import { ChannelContext } from 'content/provider/ChannelProvider';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { Request, Response } from '~channel';
 
-function useMutation(
+function useMutation<T>(
   method: Request['method'],
   path: string,
+  options: { onComplete: (data: T, error: any) => void } = { onComplete() {} },
   queryKey: string[],
-): [(variables?: Record<string, any>) => void, { error: any; isLoading: boolean }] {
+): [(variables?: Record<string, any>) => void, { isLoading: boolean }] {
   // prop destruction
 
   // lib hooks
   const { channelStore } = useContext(ChannelContext);
 
   // state, ref, querystring hooks
-  const [error, setError] = useState<any>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // form hooks
@@ -22,17 +22,15 @@ function useMutation(
 
   // calculated values
   const mutate = useCallback((variables?: Record<string, any>) => {
+    setIsLoading(true);
     channelStore.mutate(path, queryKey, method, variables);
   }, []);
 
   // effects
   useEffect(() => {
     const listener = (res: Response) => {
-      setIsLoading(true);
-      if (res.error) {
-        setError(res.error);
-      }
       setIsLoading(false);
+      options?.onComplete(res.data, res.error);
     };
 
     channelStore.subscribe(listener, path, queryKey, method);
@@ -44,7 +42,7 @@ function useMutation(
 
   // handlers
 
-  return [mutate, { error, isLoading }];
+  return [mutate, { isLoading }];
 }
 
 export { useMutation };

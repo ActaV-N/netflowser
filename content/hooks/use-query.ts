@@ -22,14 +22,12 @@ function useQuery<T>(path: string, queryKey: string[]) {
   // effects
   useEffect(() => {
     if (path && queryKey.length !== 0) {
-      console.log('Query start');
       channelStore.query(path, queryKey);
     }
   }, [path, queryKey]);
 
   useEffect(() => {
     const listener = (res: Response) => {
-      console.log(res);
       setIsLoading(true);
       if (res.data) {
         setData(res.data);

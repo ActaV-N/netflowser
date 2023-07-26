@@ -82,7 +82,7 @@ export class ChannelStore {
     const key = this.generateListenerKey(path, queryKey, method);
     this.listeners[key] = this.subject.asObservable().subscribe((res) => {
       const isTarget = intersection(res.queryKey, queryKey).length !== 0;
-      if (isTarget && res.method === 'get') {
+      if (isTarget && res.method === method) {
         listener(res);
       }
     });
