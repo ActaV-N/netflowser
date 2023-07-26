@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { Building } from '../Building';
-import { useQuery } from '~hooks';
+import { useMutation, useQuery } from '~hooks';
 
 function GenreTab() {
   // prop destruction
 
   // lib hooks
-  const { data } = useQuery('/ping', ['ping']);
+  const { data } = useQuery<string>('/ping', ['ping']);
+  const [test] = useMutation('post', '/ping', ['ping']);
 
   // state, ref, querystring hooks
 
@@ -22,7 +23,11 @@ function GenreTab() {
   }, [data]);
 
   // handlers
-  return <Building />;
+  return (
+    <>
+      <Building /> <button onClick={() => test()}>Hello</button>
+    </>
+  );
 }
 
 export { GenreTab };

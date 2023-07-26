@@ -17,6 +17,10 @@ const port = process.env.PORT;
     ctx.body = { data: 'pong' };
   });
 
+  router.post('/ping', async (ctx) => {
+    ctx.body = { data: 'pong2' };
+  });
+
   app.use(cors());
   app.use(uuidMiddleware);
   app.use(errorHandler);
