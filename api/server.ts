@@ -1,4 +1,5 @@
 import Koa from 'koa';
+import koaBody from 'koa-body';
 import Router from '@koa/router';
 import cors from '@koa/cors';
 import gracefulShutdown from 'http-graceful-shutdown';
@@ -22,6 +23,7 @@ const port = process.env.PORT;
   });
 
   app.use(cors());
+  app.use(koaBody());
   app.use(uuidMiddleware);
   app.use(errorHandler);
   app.use(dependencyInjector);
