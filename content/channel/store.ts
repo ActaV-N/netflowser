@@ -83,6 +83,7 @@ export class ChannelStore {
     this.listeners[key] = this.subject.asObservable().subscribe((res) => {
       const isTarget = intersection(res.queryKey, queryKey).length !== 0;
       if (isTarget && res.method === method) {
+        console.log('Hi');
         listener(res);
       }
     });
@@ -106,8 +107,13 @@ export class ChannelStore {
 
 const channelStore = ChannelStore.instance;
 
-chrome.runtime.onMessage.addListener(function (response: Response) {
-  channelStore.issue(response);
-});
+function listen() {
+  chrome.runtime.onMessage.addListener(function (response: Response) {
+    console.log('receive');
+    channelStore.issue(response);
+  });
+}
+
+listen();
 
 export { channelStore };

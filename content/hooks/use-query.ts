@@ -29,6 +29,7 @@ function useQuery<T>(path: string, queryKey: string[]) {
   useEffect(() => {
     const listener = (res: Response) => {
       setIsLoading(true);
+      console.log(res);
       if (res.data) {
         setData(res.data);
       } else if (res.error) {

@@ -12,6 +12,7 @@ function sendToContent({
   data?: any;
   error?: any;
 }) {
+  console.log('Send to content');
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     if (tabs[0].id) {
       chrome.tabs.sendMessage(tabs[0].id, { data, error, queryKey, method });
@@ -26,27 +27,32 @@ interface Request {
   queryKey: string[];
 }
 
-chrome.runtime.onMessage.addListener(async function (request: Request) {
-  let { method } = request;
-  const { path, queryKey, data } = request;
+function initialize() {
+  chrome.runtime.onMessage.addListener(async function (request: Request) {
+    let { method } = request;
+    const { path, queryKey, data } = request;
 
-  method ??= 'get';
+    console.log('Receive from content');
+    method ??= 'get';
 
-  try {
-    const result = await httpClient[method](path, data);
+    try {
+      const result = await httpClient[method](path, data);
 
-    sendToContent({
-      data: result,
-      queryKey,
-      method,
-    });
-  } catch (error) {
-    const { message } = error as Error;
+      sendToContent({
+        data: result,
+        queryKey,
+        method,
+      });
+    } catch (error) {
+      const { message } = error as Error;
 
-    sendToContent({
-      error: message,
-      queryKey,
-      method,
-    });
-  }
-});
+      sendToContent({
+        error: message,
+        queryKey,
+        method,
+      });
+    }
+  });
+}
+
+initialize();
