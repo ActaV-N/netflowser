@@ -132,7 +132,7 @@ function GenreItem(props: { genre: Genre }) {
 
   return (
     <GenreItemContainer key={genre.code} href={`https://www.netflix.com/browse/genre/${genre.code}`}>
-      <div className='genre-item--title'>{genre.ko}</div>
+      <div className='genre-item--title'>{genre.title}</div>
       <div className='genre-item--wrapper'></div>
       <button className={cx('genre-item--like', liked && 'liked')} onClick={handleLike}>
         <LikeIcon />
