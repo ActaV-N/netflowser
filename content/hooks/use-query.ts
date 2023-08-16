@@ -1,6 +1,5 @@
 import { ChannelContext } from 'content/provider/ChannelProvider';
 import { useContext, useEffect, useState } from 'react';
-import { Response } from '~channel';
 
 function useQuery<T>(path: string, queryKey: string[]) {
   // prop destruction
@@ -21,15 +20,8 @@ function useQuery<T>(path: string, queryKey: string[]) {
 
   // effects
   useEffect(() => {
-    if (path && queryKey.length !== 0) {
-      channelStore.query(path, queryKey);
-    }
-  }, [path, queryKey]);
-
-  useEffect(() => {
-    const listener = (res: Response) => {
+    const listener = (res: ChannelResponse) => {
       setIsLoading(true);
-      console.log(res);
       if (res.data) {
         setData(res.data);
       } else if (res.error) {
@@ -44,6 +36,12 @@ function useQuery<T>(path: string, queryKey: string[]) {
       channelStore.unsubscribe(path, queryKey);
     };
   }, []);
+
+  useEffect(() => {
+    if (path && queryKey.length !== 0) {
+      channelStore.query(path, queryKey);
+    }
+  }, [path, queryKey]);
 
   // handlers
 

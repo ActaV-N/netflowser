@@ -1,51 +1,39 @@
 {
-    "compilerOptions": {
-      "target": "es5",
-      "lib": [
-        "dom",
-        "dom.iterable",
-        "esnext"
-      ],
-      "allowJs": true,
-      "skipLibCheck": true,
-      "esModuleInterop": true,
-      "allowSyntheticDefaultImports": true,
-      "strict": true,
-      "forceConsistentCasingInFileNames": true,
-      "noFallthroughCasesInSwitch": true,
-      "module": "CommonJS",
-      "moduleResolution": "node",
-      "resolveJsonModule": true,
-      "isolatedModules": true,
-      "noEmit": true,
-      "jsx": "react-jsx",
-      "jsxImportSource": "@emotion/react",
-      "baseUrl": ".",
-      "paths": {
-        "~components": ["content/components"],
-        "~components/Inputs": ["content/components/Inputs"],
-        "~components/Utils": ["content/components/Utils"],
-        "~components/Icons": ["content/components/Icons"],
-        "~tabs": ["content/tabs"],
-        "~styles": ["content/styles"],
-        "~repository": ["content/repository"],
-        "~models": ["content/models"],
-        "~api/middleware": ["api/middleware"],
-        "~api/config": ["api/config"],
-        "~api/lib/*": ["api/lib/*"],
-        "~channel": ["content/channel"],
-        "~hooks": ["content/hooks"]
-      }
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
+    "baseUrl": ".",
+    "paths": {
+      "~components": ["content/components"],
+      "~components/Inputs": ["content/components/Inputs"],
+      "~components/Utils": ["content/components/Utils"],
+      "~components/Icons": ["content/components/Icons"],
+      "~tabs": ["content/tabs"],
+      "~styles": ["content/styles"],
+      "~repository": ["content/repository"],
+      "~models": ["content/models"],
+      "~api/middleware": ["api/middleware"],
+      "~api/config": ["api/config"],
+      "~api/lib/*": ["api/lib/*"],
+      "~channel": ["content/channel"],
+      "~hooks": ["content/hooks"]
     },
-    "include": [
-      "content",
-      "api",
-      "background",
-      "const"
-    ],
-    "exclude": [
-      "node_modules",
-      "dist"
-    ]
-  }
-  
+    "typeRoots": ["node_modules/@types", "@types"]
+  },
+  "include": ["content", "api", "background", "const", "@types"],
+  "exclude": ["node_modules", "dist"]
+}
