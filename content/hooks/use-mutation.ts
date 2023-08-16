@@ -1,12 +1,11 @@
 import { ChannelContext } from 'content/provider/ChannelProvider';
 import { useCallback, useContext, useEffect, useState } from 'react';
-import { Request, Response } from '~channel';
 
 function useMutation<T>(
-  method: Request['method'],
   path: string,
   options: { onComplete?: (data: T) => void; onError?: (error: Error) => void } = { onComplete() {}, onError() {} },
   queryKey: string[],
+  method: ChannelRequest['method'] = 'post',
 ): [(variables?: Record<string, any>) => void, { isLoading: boolean }] {
   // prop destruction
 
@@ -28,7 +27,7 @@ function useMutation<T>(
 
   // effects
   useEffect(() => {
-    const listener = (res: Response) => {
+    const listener = (res: ChannelResponse) => {
       setIsLoading(false);
       if (res.data) {
         options?.onComplete?.(res.data);

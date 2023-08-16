@@ -8,11 +8,10 @@ function GenreTab() {
   // lib hooks
   const { data } = useQuery<string>('/ping', ['ping']);
   const [test] = useMutation(
-    'post',
     '/ping',
     {
       onComplete(data) {
-        console.log(data);
+        console.log('m', data);
       },
     },
     ['ping'],

@@ -47,7 +47,7 @@ export class ChannelStore {
   }
 
   mutate(path: string, queryKey: string[], method: Method, data?: Record<string, any>, uniqStr?: string) {
-    const key = this.generateKey(path, queryKey, 'get', uniqStr);
+    const key = this.generateKey(path, queryKey, method, uniqStr);
     const query = { id: key, method, path, queryKey, data } as const;
     sendMessage(query);
   }
