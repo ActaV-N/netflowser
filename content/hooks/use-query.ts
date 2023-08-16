@@ -41,7 +41,7 @@ function useQuery<T>(path: string, queryKey: string[]) {
     if (path && queryKey.length !== 0) {
       channelStore.query(path, queryKey);
     }
-  }, [path, queryKey]);
+  }, []);
 
   // handlers
 

@@ -1,39 +1,32 @@
-import { useEffect } from 'react';
+import { useQuery } from '~hooks';
 import { Building } from '../Building';
-import { useMutation, useQuery } from '~hooks';
+import { Genre } from '~models';
+import { useEffect, useMemo } from 'react';
 
 function GenreTab() {
   // prop destruction
 
   // lib hooks
-  const { data } = useQuery<string>('/ping', ['ping']);
-  const [test] = useMutation(
-    '/ping',
-    {
-      onComplete(data) {
-        console.log('m', data);
-      },
-    },
-    ['ping'],
-  );
 
   // state, ref, querystring hooks
 
   // form hooks
 
   // query hooks
+  const { data } = useQuery<Genre[]>('/genres', ['Genres']);
 
   // calculated values
+  const genres = useMemo(() => data || [], [data]);
 
   // effects
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    console.log(genres);
+  }, [genres]);
 
   // handlers
   return (
     <>
-      <Building /> <button onClick={() => test()}>Hello</button>
+      <Building />
     </>
   );
 }

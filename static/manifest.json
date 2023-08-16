@@ -19,7 +19,7 @@
     "service_worker": "./background.js",
     "type": "module"
   },
-  "permissions": ["scripting"],
+  "permissions": ["scripting", "storage"],
   "action": {
     "default_popup": "./popup/index.html",
     "default_icon": "icon128.png"
