@@ -3,8 +3,9 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import { BsListColumnsReverse as GenresIcon } from 'react-icons/bs';
 import { AiFillHeart as LikeIcon } from 'react-icons/ai';
+import { AiFillSetting as SettingIcon } from 'react-icons/ai';
 import { ClickAwayListener, FloatingButton, Popover, ToggleIcon } from '~components';
-import { GenreTab, LikeTab } from '~tabs';
+import { GenreTab, LikeTab, SettingTab } from '~tabs';
 
 const Container = styled.div`
   color: #fff;
@@ -112,6 +113,9 @@ function App() {
                     </Fin>
                     <Fin path='like' activeColor='#FA5352' icon={<LikeIcon />}>
                       <LikeTab />
+                    </Fin>
+                    <Fin path='setting' activeColor='#001C38' icon={<SettingIcon />}>
+                      <SettingTab />
                     </Fin>
                   </Fins>
                 </div>

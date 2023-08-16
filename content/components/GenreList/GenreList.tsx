@@ -1,8 +1,25 @@
 import { cx } from '@emotion/css';
 import styled from '@emotion/styled';
-import { MouseEventHandler } from 'react';
-import { AiFillHeart as LikeIcon } from 'react-icons/ai';
+import { useState } from 'react';
+import { AiFillHeart as LikeIcon, AiFillFrown as NoDataIcon } from 'react-icons/ai';
+import { useMutation } from '~hooks';
 import { Genre } from '~models';
+
+const NoGenreContainer = styled.div`
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  font-size: 48px;
+
+  p {
+    font-size: 14px;
+  }
+`;
 
 const GenreListContainer = styled.div`
   width: 100%;
@@ -23,7 +40,7 @@ const GenreListContainer = styled.div`
   }
 `;
 
-const GenreListItem = styled.a`
+const GenreItemContainer = styled.a`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -65,9 +82,64 @@ const GenreListItem = styled.a`
 
     &: hover {
       color: #2e2e2e;
+
+      &.liked {
+        color: #a03534;
+      }
     }
   }
 `;
+
+function GenreItem(props: { genre: Genre }) {
+  // prop destruction
+  const { genre } = props;
+
+  // lib hooks
+
+  // state, ref, querystring hooks
+  const [liked, setLiked] = useState(genre.like);
+
+  // form hooks
+
+  // query hooks
+  const [like] = useMutation<{
+    id: number;
+    liked: boolean;
+  }>(
+    '/genres/like',
+    {
+      onComplete({ id, liked }) {
+        // TODO: react-query처럼 같은 queryKey에 해당하는 mutate 발생시 refetch하는걸로 대체하기
+        if (genre.code === id) {
+          setLiked(liked);
+        }
+      },
+    },
+    ['genres'],
+  );
+
+  // calculated values
+
+  // effects
+
+  // handlers
+  const handleLike: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    like({
+      id: genre.code,
+    });
+  };
+
+  return (
+    <GenreItemContainer key={genre.code} href={`https://www.netflix.com/browse/genre/${genre.code}`}>
+      <div className='genre-item--title'>{genre.ko}</div>
+      <div className='genre-item--wrapper'></div>
+      <button className={cx('genre-item--like', liked && 'liked')} onClick={handleLike}>
+        <LikeIcon />
+      </button>
+    </GenreItemContainer>
+  );
+}
 
 function GenreList(props: { genres: Genre[] }) {
   // prop destruction
@@ -86,21 +158,20 @@ function GenreList(props: { genres: Genre[] }) {
   // effects
 
   // handlers
-  const handleClickHeart: MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.preventDefault();
-  };
+  if (genres.length === 0) {
+    return (
+      <NoGenreContainer>
+        <NoDataIcon />
+        <p>아이템이 없어요</p>
+      </NoGenreContainer>
+    );
+  }
 
   return (
     <GenreListContainer>
       <div className='content-wrapper'>
         {genres.map((genre) => (
-          <GenreListItem key={genre.code} href={`https://www.netflix.com/browse/genre/${genre.code}`}>
-            <div className='genre-item--title'>{genre.ko}</div>
-            <div className='genre-item--wrapper'></div>
-            <button className={cx('genre-item--like', genre.like && 'liked')} onClick={handleClickHeart}>
-              <LikeIcon />
-            </button>
-          </GenreListItem>
+          <GenreItem key={genre.code} genre={genre} />
         ))}
       </div>
     </GenreListContainer>

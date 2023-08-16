@@ -1,10 +1,17 @@
 import { genres } from './data';
 
-const myLikes: number[] = [];
+export type Language = Exclude<keyof (typeof genres)[number], 'code'>;
+
+const likes: number[] = [];
+const language: Language = 'ko';
 
 export async function initStorage() {
   chrome.storage.local.set({
     genres,
-    likes: myLikes,
+  });
+
+  chrome.storage.sync.set({
+    likes,
+    language,
   });
 }

@@ -21,11 +21,7 @@ function GenreTab() {
   // effects
 
   // handlers
-  return (
-    <>
-      <GenreList genres={genres} />
-    </>
-  );
+  return <GenreList genres={genres} />;
 }
 
 export { GenreTab };
