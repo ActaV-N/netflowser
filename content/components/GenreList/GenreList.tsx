@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css';
 import styled from '@emotion/styled';
-import { useState } from 'react';
-import { AiFillHeart as LikeIcon, AiFillFrown as NoDataIcon } from 'react-icons/ai';
+import { useMemo, useState } from 'react';
+import { AiFillHeart as LikeIcon, AiFillFrown as NoDataIcon, AiOutlineSearch as SearchIcon } from 'react-icons/ai';
 import { useMutation } from '~hooks';
 import { Genre } from '~models';
 
@@ -28,7 +28,6 @@ const GenreListContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  padding: 10px;
   box-sizing: border-box;
 
   .content-wrapper {
@@ -37,6 +36,8 @@ const GenreListContainer = styled.div`
     display: flex;
     flex-direction: column;
     row-gap: 10px;
+
+    padding: 10px;
   }
 `;
 
@@ -86,6 +87,52 @@ const GenreItemContainer = styled.a`
       &.liked {
         color: #a03534;
       }
+    }
+  }
+`;
+
+const SearchBox = styled.form`
+  border-bottom: 0.5px solid #3e3e3e;
+
+  width: 100%;
+  height: 57px;
+
+  box-sizing: border-box;
+  padding: 10px;
+
+  .searchbox {
+    width: 100%;
+    height: 100%;
+
+    border: 0.5px solid #3e3e3e;
+    border-radius: 5px;
+
+    font-size: 12px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.4);
+
+    display: flex;
+
+    input {
+      flex: 1;
+      padding: 10px;
+
+      background: transparent;
+      border: none;
+      outline: none;
+    }
+
+    .searchbox--icon {
+      flex: 0 1 auto;
+      padding: 10px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: transparent;
+      outline: none;
+      border: none;
     }
   }
 `;
@@ -141,39 +188,67 @@ function GenreItem(props: { genre: Genre }) {
   );
 }
 
-function GenreList(props: { genres: Genre[] }) {
+function GenreList(props: { genres: Genre[]; searchable?: boolean }) {
   // prop destruction
-  const { genres } = props;
+  const { genres, searchable } = props;
 
   // lib hooks
 
   // state, ref, querystring hooks
+  const [searchInput, setSearchInput] = useState<string>();
+  const [searchValue, setSearchValue] = useState<string>();
 
   // form hooks
 
   // query hooks
 
   // calculated values
+  const filteredResult = useMemo(
+    () =>
+      genres.filter(
+        (genre) => !searchable || !searchValue || genre.title.toLowerCase().includes(searchValue.toLowerCase()),
+      ),
+    [searchValue, searchable, genres],
+  );
 
   // effects
 
   // handlers
-  if (genres.length === 0) {
-    return (
-      <NoGenreContainer>
-        <NoDataIcon />
-        <p>아이템이 없어요</p>
-      </NoGenreContainer>
-    );
-  }
+  const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value);
+  };
+
+  const handleSearch: React.FormEventHandler = (e) => {
+    e.preventDefault();
+    setSearchValue(searchInput);
+  };
 
   return (
     <GenreListContainer>
-      <div className='content-wrapper'>
-        {genres.map((genre) => (
-          <GenreItem key={genre.code} genre={genre} />
-        ))}
-      </div>
+      {searchable && (
+        <div className='searchbox-wrapper'>
+          <SearchBox onSubmit={handleSearch}>
+            <div className='searchbox'>
+              <input name='search' onChange={handleSearchInput} type='text' />
+              <button className='searchbox--icon' type='submit'>
+                <SearchIcon />
+              </button>
+            </div>
+          </SearchBox>
+        </div>
+      )}
+      {filteredResult.length === 0 ? (
+        <NoGenreContainer>
+          <NoDataIcon />
+          <p>아이템이 없어요</p>
+        </NoGenreContainer>
+      ) : (
+        <div className='content-wrapper'>
+          {filteredResult.map((genre) => (
+            <GenreItem key={genre.code} genre={genre} />
+          ))}
+        </div>
+      )}
     </GenreListContainer>
   );
 }

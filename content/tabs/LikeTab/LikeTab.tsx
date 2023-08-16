@@ -20,7 +20,7 @@ function LikeTab() {
   // effects
 
   // handlers
-  return <GenreList genres={genres} />;
+  return <GenreList searchable genres={genres} />;
 }
 
 export { LikeTab };
