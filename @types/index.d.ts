@@ -15,3 +15,9 @@ interface ChannelResponse<T = any> {
   error?: any;
   queryKey: string[];
 }
+
+interface Genre {
+  code: number;
+  ko: string;
+  en: string;
+}

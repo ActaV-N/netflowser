@@ -1,7 +1,7 @@
 import { useQuery } from '~hooks';
-import { Building } from '../Building';
 import { Genre } from '~models';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
+import { GenreList } from '~components';
 
 function GenreTab() {
   // prop destruction
@@ -19,14 +19,11 @@ function GenreTab() {
   const genres = useMemo(() => data || [], [data]);
 
   // effects
-  useEffect(() => {
-    console.log(genres);
-  }, [genres]);
 
   // handlers
   return (
     <>
-      <Building />
+      <GenreList genres={genres} />
     </>
   );
 }

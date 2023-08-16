@@ -1,8 +1,17 @@
 export const genres = [
   {
-    id: 0,
-    ko: '이름',
-    en: 'name',
-    code: 51,
+    code: 1365,
+    ko: '액션 & 어드벤처',
+    en: 'Action & Adventure',
+  },
+  {
+    code: 1568,
+    ko: '액션 SF & 판타지',
+    en: 'SF Action & Fantasy',
+  },
+  {
+    code: 43040,
+    ko: '액션 코미디 영화',
+    en: 'Action Comedy movie',
   },
 ];

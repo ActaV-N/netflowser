@@ -1,6 +1,6 @@
 export type Genre = {
-  id: number;
+  code: number;
   ko: string;
   en: string;
-  code: number;
+  like: boolean;
 };

@@ -1,7 +1,12 @@
 import { channelInstance } from '..';
 
 channelInstance.get('/genres', async () => {
-  const { genres } = await chrome.storage.local.get('genres');
+  const { genres, likes } = await chrome.storage.local.get(['genres', 'likes']);
 
-  return genres;
+  const likeSet = new Set(likes);
+
+  return genres.map((genre: Genre) => ({
+    ...genre,
+    like: likeSet.has(genre.code),
+  }));
 });
