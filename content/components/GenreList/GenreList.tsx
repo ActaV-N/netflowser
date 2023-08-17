@@ -1,6 +1,7 @@
 import { cx } from '@emotion/css';
 import styled from '@emotion/styled';
 import { useMemo, useState } from 'react';
+import { PuffLoader } from 'react-spinners';
 import { AiFillHeart as LikeIcon, AiFillFrown as NoDataIcon, AiOutlineSearch as SearchIcon } from 'react-icons/ai';
 import { useMutation } from '~hooks';
 import { Genre } from '~models';
@@ -30,8 +31,19 @@ const GenreListContainer = styled.div`
 
   box-sizing: border-box;
 
+  position: relative;
+
+  .loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
   .content-wrapper {
-    flex: 1;
+    height: 366px;
+    box-sizing: border-box;
+    overflow: auto;
 
     display: flex;
     flex-direction: column;
@@ -188,9 +200,9 @@ function GenreItem(props: { genre: Genre }) {
   );
 }
 
-function GenreList(props: { genres: Genre[]; searchable?: boolean }) {
+function GenreList(props: { genres: Genre[]; searchable?: boolean; loading: boolean }) {
   // prop destruction
-  const { genres, searchable } = props;
+  const { genres, searchable, loading } = props;
 
   // lib hooks
 
@@ -205,9 +217,9 @@ function GenreList(props: { genres: Genre[]; searchable?: boolean }) {
   // calculated values
   const filteredResult = useMemo(
     () =>
-      genres.filter(
-        (genre) => !searchable || !searchValue || genre.title.toLowerCase().includes(searchValue.toLowerCase()),
-      ),
+      genres
+        .filter((genre) => !searchable || !searchValue || genre.title.toLowerCase().includes(searchValue.toLowerCase()))
+        .slice(0, 10),
     [searchValue, searchable, genres],
   );
 
@@ -237,7 +249,10 @@ function GenreList(props: { genres: Genre[]; searchable?: boolean }) {
           </SearchBox>
         </div>
       )}
-      {filteredResult.length === 0 ? (
+      {loading && (
+        <PuffLoader cssOverride={{ position: 'absolute' }} className='loader' color='rgba(255, 255, 255, 0.8)' />
+      )}
+      {!loading && filteredResult.length === 0 ? (
         <NoGenreContainer>
           <NoDataIcon />
           <p>아이템이 없어요</p>

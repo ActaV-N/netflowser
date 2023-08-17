@@ -12,7 +12,7 @@ function LikeTab() {
 
   // form hooks
 
-  const { data } = useQuery<Genre[]>('/genres/only-like', ['Genres']);
+  const { data, isLoading } = useQuery<Genre[]>('/genres/only-like', ['Genres']);
 
   // calculated values
   const genres = useMemo(() => data || [], [data]);
@@ -20,7 +20,7 @@ function LikeTab() {
   // effects
 
   // handlers
-  return <GenreList searchable genres={genres} />;
+  return <GenreList loading={isLoading} searchable genres={genres} />;
 }
 
 export { LikeTab };

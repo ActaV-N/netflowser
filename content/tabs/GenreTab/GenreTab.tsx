@@ -13,7 +13,7 @@ function GenreTab() {
   // form hooks
 
   // query hooks
-  const { data } = useQuery<Genre[]>('/genres', ['Genres']);
+  const { data, isLoading } = useQuery<Genre[]>('/genres', ['Genres']);
 
   // calculated values
   const genres = useMemo(() => data || [], [data]);
@@ -21,7 +21,7 @@ function GenreTab() {
   // effects
 
   // handlers
-  return <GenreList searchable genres={genres} />;
+  return <GenreList loading={isLoading} searchable genres={genres} />;
 }
 
 export { GenreTab };
