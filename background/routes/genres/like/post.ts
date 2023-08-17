@@ -1,8 +1,10 @@
+import { chromeStorage } from 'background/storage';
 import { channelInstance } from '../..';
 
 channelInstance.post('/genres/like', async (req) => {
   const { id } = req.data as { id: number };
-  const { likes } = (await chrome.storage.sync.get(['likes'])) as { likes: number[] };
+
+  const { likes } = await chromeStorage.get(['likes', 'language']);
 
   let newLikes: number[] = [];
   let liked: boolean = false;
@@ -14,9 +16,7 @@ channelInstance.post('/genres/like', async (req) => {
     liked = true;
   }
 
-  await chrome.storage.sync.set({
-    likes: newLikes,
-  });
+  await chromeStorage.set('likes', newLikes);
 
   return {
     id,

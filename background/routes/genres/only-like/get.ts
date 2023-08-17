@@ -1,9 +1,9 @@
-import { Language } from '../../../storage';
+import { Language, chromeStorage } from '../../../storage';
 import { channelInstance } from '../..';
 
 channelInstance.get('/genres/only-like', async () => {
-  const { genres } = await chrome.storage.local.get(['genres']);
-  const { likes, language } = await chrome.storage.sync.get(['likes', 'language']);
+  const { genres } = await chromeStorage.get('genres', 'local');
+  const { likes, language } = await chromeStorage.get(['likes', 'language']);
 
   const likeSet = new Set(likes);
 

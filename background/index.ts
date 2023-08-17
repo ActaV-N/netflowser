@@ -1,13 +1,7 @@
 import { channelInstance } from './routes';
-import { initStorage } from './storage';
+import './storage';
 
 (async () => {
-  async function initialize() {
-    await initStorage();
-  }
-
-  await initialize();
-
   function sendToContent({
     id,
     method,
